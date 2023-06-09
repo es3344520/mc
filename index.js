@@ -2,15 +2,15 @@ const express = require('express');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-const IDENTITY = process.env.IDENTITY;
-const PASSWORD = process.env.PASSWORD;
+const identity = process.env.identity;
+const password = process.env.password;
 
 app.get('/identity', (req, res) => {
-  res.json({ identity: IDENTITY });
+  res.json({ identity: identity });
 });
 
 app.get('/password', (req, res) => {
-  res.json({ password: PASSWORD });
+  res.json({ password: password });
 });
 
 app.listen(PORT, () => {
