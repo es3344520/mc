@@ -1,0 +1,11 @@
+services:
+- type: web
+  name: token-and-cookie-auth
+  env: node
+  buildCommand: npm install
+  startCommand: npm start
+  envVars:
+  - key: TOKEN_SECRET
+    value: your_actual_token_secret
+  - key: COOKIE_SECRET
+    value: A54kNah1FoC2P_Hx1HDeFA%3D%3D
