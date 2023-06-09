@@ -1,7 +1,7 @@
 {
-  "name": "vercel-remote-server",
+  "name": "vercel-auth",
   "version": "1.0.0",
-  "description": "A remote server with password environment variable on Vercel",
+  "description": "A simple authentication server with environment variables",
   "main": "index.js",
   "scripts": {
     "start": "node index.js"
