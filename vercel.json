@@ -18,7 +18,7 @@
     }
   ],
   "env": {
-    "IDENTITY": "你的身份验证信息",
-    "PASSWORD": "A54kNah1FoC2P_Hx1HDeFA%3D%3D"
+    "identity": "你的身份验证信息",
+    "password": "A54kNah1FoC2P_Hx1HDeFA%3D%3D"
   }
 }
