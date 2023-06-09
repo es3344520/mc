@@ -1,47 +1,28 @@
 const express = require('express');
 const app = express();
 
-const TOKEN_PATH = "/token-auth";
-const COOKIE_PATH = "/cookie-auth";
-const COOKIE_NAME = "p-b";
+const tokenValue = process.env.TOKEN_VALUE;
+const cookieValue = process.env.COOKIE_VALUE;
 
 app.use(express.json());
 
-// Token authentication middleware
-app.use(TOKEN_PATH, (req, res, next) => {
-  const authToken = req.header('Authorization');
-  const serverToken = process.env.TOKEN_SECRET;
+// 令牌验证的路由
+app.post('/token-validation', (req, res) => {
+  const clientToken = req.body.token;
 
-  if (authToken && authToken === `Bearer ${serverToken}`) {
-    next();
+  if (clientToken === tokenValue) {
+    res.status(200).json({ message: 'Token validation successful.' });
   } else {
-    res.status(401).send('Unauthorized');
+    res.status(401).json({ message: 'Token validation failed.' });
   }
 });
 
-// Cookie authentication middleware
-app.use(COOKIE_PATH, (req, res, next) => {
-  const clientCookie = req.cookies[COOKIE_NAME];
-  const serverCookie = process.env.COOKIE_SECRET;
-
-  if (clientCookie && clientCookie === serverCookie) {
-    next();
-  } else {
-    res.status(401).send('Unauthorized');
-  }
+// Cookie路由
+app.get('/cookie', (req, res) => {
+  res.cookie('p-b', cookieValue).json({ message: 'Cookie has been set.' });
 });
 
-// Token authentication route
-app.get(TOKEN_PATH, (req, res) => {
-  res.send('Token authentication successful');
-});
-
-// Cookie authentication route
-app.get(COOKIE_PATH, (req, res) => {
-  res.send('Cookie authentication successful');
-});
-
-const port = process.env.PORT || 3000;
-app.listen(port, () => {
-  console.log(`Server running on port ${port}`);
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
 });
