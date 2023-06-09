@@ -3,7 +3,7 @@ const cookieParser = require('cookie-parser');
 const app = express();
 
 const TOKEN_PATH = "/token-auth";
-const SET_COOKIE_PATH = "/set-cookie";
+const COOKIE_PATH = "/cookie-auth";
 const COOKIE_NAME = "p-b";
 
 app.use(express.json());
@@ -24,6 +24,17 @@ app.use(TOKEN_PATH, (req, res, next) => {
 // Token authentication route
 app.get(TOKEN_PATH, (req, res) => {
   res.send('Token authentication successful');
+});
+
+// Cookie route without authentication
+app.get(COOKIE_PATH, (req, res) => {
+  const cookieValue = process.env.COOKIE_SECRET;
+  res.send(`Cookie value from environment variable: ${cookieValue}`);
+});
+
+const port = process.env.PORT || 3000;
+app.listen(port, () => {
+  console.log(`Server running on port ${port}`);
 });
 
 // Set cookie route
