@@ -1,12 +1,14 @@
 {
-  "name": "token-and-cookie-auth",
+  "name": "render-web-service",
   "version": "1.0.0",
-  "description": "A web service with token authentication and cookie support",
-  "main": "index.js",
+  "description": "A web service with token authentication and cookie environment variables.",
+  "main": "server.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "node server.js"
   },
   "dependencies": {
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "body-parser": "^1.19.0",
+    "cookie-parser": "^1.4.5"
   }
 }
