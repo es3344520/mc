@@ -1,24 +1,9 @@
-{
-  "version": 2,
-  "name": "vercel-auth",
-  "builds": [
-    {
-      "src": "index.js",
-      "use": "@vercel/node"
-    }
-  ],
-  "routes": [
-    {
-      "src": "/identity",
-      "dest": "/identity"
-    },
-    {
-      "src": "/password",
-      "dest": "/password"
-    }
-  ],
-  "env": {
-    "identity": "你的身份验证信息",
-    "password": "A54kNah1FoC2P_Hx1HDeFA%3D%3D"
-  }
-}
+services:
+  - type: web
+    name: my-auth-server
+    env: python
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "uvicorn server:app --host 0.0.0.0 --port 80"
+    envVars:
+      - key: AUTH_COOKIE_VALUE
+        value: "A54kNah1FoC2P_Hx1HDeFA%3D%3D"
