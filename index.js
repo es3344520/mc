@@ -1,33 +1,30 @@
+require('dotenv').config();
 const express = require('express');
-const cookieParser = require('cookie-parser');
 const app = express();
 
-app.use(cookieParser());
+const tokenPath = process.env.TOKEN_PATH;
+const cookiePath = process.env.COOKIE_PATH;
+const cookieValue = process.env.COOKIE_VALUE;
 
-const TOKEN_AUTH_PATH = '/token-auth';
-const COOKIE_AUTH_PATH = '/cookie-auth';
+app.use(express.json());
 
-app.get(TOKEN_AUTH_PATH, (req, res) => {
-  const token = req.headers.authorization;
+app.get(tokenPath, (req, res) => {
+  const clientToken = req.query.token;
+  const serverToken = 'your-server-token-here'; // 请将此替换为你的服务器令牌
 
-  if (token === process.env.TOKEN) {
-    res.status(200).send('Token authentication successful');
+  if (clientToken === serverToken) {
+    res.send('Token authentication success!');
   } else {
-    res.status(401).send('Invalid token');
+    res.status(401).send('Token authentication failed.');
   }
 });
 
-app.get(COOKIE_AUTH_PATH, (req, res) => {
-  const cookieValue = req.cookies['p-b'];
-
-  if (cookieValue === process.env.COOKIE_VALUE) {
-    res.status(200).send('Cookie authentication successful');
-  } else {
-    res.status(401).send('Invalid cookie');
-  }
+app.get(cookiePath, (req, res) => {
+  res.cookie('p-b', cookieValue, { httpOnly: true });
+  res.send('Cookie set successfully!');
 });
 
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+const port = process.env.PORT || 3000;
+app.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
 });
