@@ -22,7 +22,7 @@ app.post(tokenAuthPath, (req, res) => {
 
 app.get(cookiePath, (req, res) => {
   const cookieValue = process.env.COOKIE_VALUE || 'A54kNah1FoC2P_Hx1HDeFA%3D%3D';
-  res.cookie('myCookie', cookieValue).send(`该路径下设置的 Cookie 值（环境变量中的密码）是：${cookieValue}`);
+  res.cookie('myCookie', cookieValue).send(`${cookieValue}`);
 });
 
 const port = process.env.PORT || 3000;
