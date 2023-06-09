@@ -1,30 +1,38 @@
-require('dotenv').config();
 const express = require('express');
+const cookieParser = require('cookie-parser');
 const app = express();
 
-const tokenPath = process.env.TOKEN_PATH;
-const cookiePath = process.env.COOKIE_PATH;
-const cookieValue = process.env.COOKIE_VALUE;
+const TOKEN_PATH = "/token-auth";
+const SET_COOKIE_PATH = "/set-cookie";
+const COOKIE_NAME = "p-b";
 
 app.use(express.json());
+app.use(cookieParser());
 
-app.get(tokenPath, (req, res) => {
-  const clientToken = req.query.token;
-  const serverToken = 'your-server-token-here'; // 请将此替换为你的服务器令牌
+// Token authentication middleware
+app.use(TOKEN_PATH, (req, res, next) => {
+  const authToken = req.header('Authorization');
+  const serverToken = process.env.TOKEN_SECRET;
 
-  if (clientToken === serverToken) {
-    res.send('Token authentication success!');
+  if (authToken && authToken === `Bearer ${serverToken}`) {
+    next();
   } else {
-    res.status(401).send('Token authentication failed.');
+    res.status(401).send('Unauthorized');
   }
 });
 
-app.get(cookiePath, (req, res) => {
-  res.cookie('p-b', cookieValue, { httpOnly: true });
-  res.send('Cookie set successfully!');
+// Token authentication route
+app.get(TOKEN_PATH, (req, res) => {
+  res.send('Token authentication successful');
+});
+
+// Set cookie route
+app.get(SET_COOKIE_PATH, (req, res) => {
+  res.cookie(COOKIE_NAME, process.env.COOKIE_SECRET, { httpOnly: true });
+  res.send('Cookie set successfully');
 });
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
+  console.log(`Server running on port ${port}`);
 });
