@@ -1,9 +1,0 @@
-services:
-  - type: web
-    name: my-auth-server
-    env: python
-    buildCommand: "pip install -r requirements.txt"
-    startCommand: "uvicorn server:app --host 0.0.0.0 --port 80"
-    envVars:
-      - key: AUTH_COOKIE_VALUE
-        value: "A54kNah1FoC2P_Hx1HDeFA%3D%3D"
