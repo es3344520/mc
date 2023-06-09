@@ -1,0 +1,24 @@
+{
+  "version": 2,
+  "name": "vercel-auth",
+  "builds": [
+    {
+      "src": "index.js",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/identity",
+      "dest": "/identity"
+    },
+    {
+      "src": "/password",
+      "dest": "/password"
+    }
+  ],
+  "env": {
+    "IDENTITY": "你的身份验证信息",
+    "PASSWORD": "A54kNah1FoC2P_Hx1HDeFA%3D%3D"
+  }
+}
