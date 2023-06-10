@@ -6,8 +6,8 @@ const app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 
-const tokenAuthPath = '/token-auth';
-const cookiePath = '/cookie';
+const tokenAuthPath = process.env.TOKEN_AUTH_PATH || '/token-auth';
+const cookiePath = process.env.COOKIE_PATH || '/cookie';
 
 app.post(tokenAuthPath, (req, res) => {
   const password = req.body.password;
